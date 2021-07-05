@@ -34,7 +34,7 @@ const Topbar: React.FC = () => {
             }}
             className="flex items-center"
           >
-            <span className="font-semibold mr-2">Entrar com </span>
+            <span className="font-semibold text-white mr-2">Entrar com </span>
             <FcGoogle size={28} />
           </button>
         </div>
