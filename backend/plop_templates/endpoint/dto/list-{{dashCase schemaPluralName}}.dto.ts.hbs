@@ -1,0 +1,39 @@
+import { IsOptional, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  {{schemaName}}
+} from 'src/mongoose/schemas/{{schemaName}}.schema';
+import { PaginatedResponse } from 'src/shared/pagination/dto/pagination-response.dto';
+import { FilterCreatedAtDTO } from 'src/shared/dto/filter-created-at.dto';
+import {
+  PopulateAttribute,
+  SortAttribute,
+  TransformIfDefined,
+} from 'src/shared/transforms';
+
+export class List{{schemaPluralName}} extends PaginatedResponse<{{schemaName}}> {
+  @ApiProperty({
+    type: [{{schemaName}}],
+  })
+  results: {{schemaName}}[];
+}
+export class Filter{{schemaPluralName}}DTO extends FilterCreatedAtDTO {
+  @ApiProperty({
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  example?: string;
+}
+
+
+export class Sort{{schemaPluralName}}DTO {
+  @SortAttribute({ name: 'example' })
+  example?: string;
+}
+
+
+export class Populate{{schemaPluralName}}DTO {
+  @PopulateAttribute({ name: 'example' })
+  example?: boolean;
+}

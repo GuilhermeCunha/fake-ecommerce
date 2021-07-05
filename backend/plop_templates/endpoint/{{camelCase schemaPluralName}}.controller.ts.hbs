@@ -1,0 +1,125 @@
+import {
+  Body,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { toMongooseId } from 'src/mongoose/utils';
+import { FirebaseAuth } from 'src/shared/auth/firebase/decorators/firebase-auth.decorator';
+import { PaginatedResponse } from 'src/shared/pagination/dto/pagination-response.dto';
+import { PaginationDTO } from 'src/shared/pagination/dto/pagination.dto';
+import { {{schemaName}} } from 'src/mongoose/schemas/{{schemaName}}.schema';
+import { {{schemaPluralName}}Service } from './{{camelCase schemaPluralName}}.service';
+import { Filter{{schemaPluralName}}DTO, List{{schemaPluralName}}, Sort{{schemaPluralName}}DTO, Populate{{schemaPluralName}}DTO, } from './dto/list-{{dashCase schemaPluralName}}.dto';
+import { Create{{schemaName}}DTO } from './dto/create-{{dashCase schemaName}}.dto';
+import { Patch{{schemaName}}DTO } from './dto/patch-{{dashCase schemaName}}.dto';
+import { Update{{schemaName}}DTO } from './dto/update-{{dashCase schemaName}}.dto';
+
+@ApiTags('{{dashCase schemaPluralName}}')
+@Controller('{{dashCase schemaPluralName}}')
+export class {{schemaPluralName}}Controller {
+  constructor(private {{camelCase schemaPluralName}}Service: {{schemaPluralName}}Service) {}
+
+  @ApiOkResponse({
+    description: '{{schemaName}}es obtido(a)s com sucesso',
+    type: List{{schemaPluralName}},
+  })
+  @Get('/')
+  async getMany(
+    @Query() filters: Filter{{schemaPluralName}}DTO = {},
+    @Query()
+    pagination: PaginationDTO,
+    @Query()
+    sorts: Sort{{schemaPluralName}}DTO,
+    @Query()
+    populates: Populate{{schemaPluralName}}DTO,
+  ): Promise<PaginatedResponse<{{schemaName}}>> {
+    const {{camelCase schemaName}} = await this.{{camelCase schemaPluralName}}Service.getMany({
+      filters: {
+        ...filters,
+        isDeleted: false,
+      },
+      pagination,
+      sorts,
+      populates,
+    });
+
+    return {{camelCase schemaName}} as PaginatedResponse<{{schemaName}}>;
+  }
+
+  @ApiOkResponse({
+    description: '{{schemaName}} obtido(a) com sucesso.',
+    type: {{schemaName}},
+  })
+  @Get(':id')
+  async getOne(@Param('id') id: string, @Query() populates: Populate{{schemaPluralName}}DTO,): Promise<{{schemaName}}> {
+    return await this.{{camelCase schemaPluralName}}Service.getOne({
+      filters: {
+        _id: toMongooseId(id),
+        isDeleted: false,
+      },
+      populates,
+    });
+  }
+
+  @ApiCreatedResponse({
+    description: '{{schemaName}} cadastrado(a) com sucesso.',
+    type: {{schemaName}},
+  })
+  @FirebaseAuth([])
+  @Post('/')
+  async store(@Body() dto: Create{{schemaName}}DTO): Promise<{{schemaName}}> {
+    return await this.{{camelCase schemaPluralName}}Service.create(dto);
+  }
+
+  @ApiOkResponse({
+    description: '{{schemaName}} atualizado(a) com sucesso.',
+    type: {{schemaName}},
+  })
+  @FirebaseAuth([])
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() dto: Update{{schemaName}}DTO,
+  ): Promise<{{schemaName}}> {
+    return await this.{{camelCase schemaPluralName}}Service.updateOne({
+      filters: {
+        _id: toMongooseId(id),
+      },
+      data: dto,
+    });
+  }
+
+  @ApiOkResponse({
+    description: '{{schemaName}} atualizado(a) com sucesso.',
+    type: {{schemaName}},
+  })
+  @FirebaseAuth([])
+  @Patch(':id')
+  async patch(
+    @Param('id') id: string,
+    @Body() dto: Patch{{schemaName}}DTO,
+  ): Promise<{{schemaName}}> {
+    return await this.{{camelCase schemaPluralName}}Service.updateOne({
+      filters: {
+        _id: toMongooseId(id),
+      },
+      data: dto,
+    });
+  }
+
+  @ApiOkResponse({
+    description: '{{schemaName}} deletado(a) com sucesso.',
+  })
+  @FirebaseAuth([])
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<void> {
+    return await this.{{camelCase schemaPluralName}}Service.deleteById(id);
+  }
+}

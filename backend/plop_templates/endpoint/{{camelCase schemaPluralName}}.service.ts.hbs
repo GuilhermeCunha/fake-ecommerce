@@ -1,0 +1,104 @@
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { FilterQuery, Model } from 'mongoose';
+import {
+  {{schemaName}},
+  {{schemaName}}Document,
+} from 'src/mongoose/schemas/{{schemaName}}.schema';
+import { PaginatedResponse } from 'src/shared/pagination/dto/pagination-response.dto';
+import { PaginationDTO } from 'src/shared/pagination/dto/pagination.dto';
+import { PopulateOptions, SortOptions } from 'src/shared/types';
+
+export interface IGetMany{{schemaPluralName}} {
+  filters?: FilterQuery<{{schemaName}}Document>;
+  sorts?: SortOptions<{{schemaName}}>;
+  pagination?: PaginationDTO;
+  populates?: PopulateOptions<{{schemaName}}>;
+}
+
+export interface IGetOne{{schemaName}} {
+  filters?: FilterQuery<{{schemaName}}Document>;
+  populates?: PopulateOptions<{{schemaName}}>;
+}
+export interface IUpdateOne{{schemaName}} {
+  filters?: FilterQuery<{{schemaName}}Document>;
+  data: Partial<{{schemaName}}>;
+}
+
+@Injectable()
+export class {{schemaPluralName}}Service {
+  constructor(
+    @InjectModel({{schemaName}}.name)
+    private {{camelCase schemaName}}Model: Model<{{schemaName}}Document>,
+    private logger: Logger,
+  ) {}
+  async getMany({ pagination, filters, sorts, populates = {} }: IGetMany{{schemaPluralName}} = {}): Promise<
+    PaginatedResponse<{{schemaName}}> | {{schemaName}}[]
+  > {
+    let query = this.{{camelCase schemaName}}Model.find(filters);
+    query.sort(sorts);
+
+    Object.entries(populates).forEach(([fieldName, include]) => {
+      if (include) query.populate(fieldName);
+    });
+    
+    if (pagination) {
+      const total = await this.{{camelCase schemaName}}Model.countDocuments(filters);
+      query = query.skip(pagination.skip).limit(pagination.limit);
+
+      return {
+        pagination: {
+          skip: pagination.skip,
+          limit: pagination.limit,
+          total,
+        },
+        results: await query,
+      };
+    }
+
+    return await query;
+  }
+
+  async getOne({ filters, populates = {} }: IGetOne{{schemaName}}): Promise<{{schemaName}}> {
+    const query = this.{{camelCase schemaName}}Model.findOne(filters);
+
+    Object.entries(populates).forEach(([fieldName, include]) => {
+      if (include) query.populate(fieldName);
+    });
+
+    const {{camelCase schemaName}} = await query.exec();
+
+    if (!{{camelCase schemaName}})
+      throw new HttpException('{{schemaName}} não encontrado', HttpStatus.NOT_FOUND);
+
+    return {{camelCase schemaName}};
+  }
+
+  async create(data: {{schemaName}}): Promise<{{schemaName}}Document> {
+    return this.{{camelCase schemaName}}Model.create(data);
+  }
+
+  async createMany(data: {{schemaName}}[]): Promise<{{schemaName}}Document[]> {
+    return this.{{camelCase schemaName}}Model.create(data);
+  }
+
+  async updateOne({ filters, data }: IUpdateOne{{schemaName}}): Promise<{{schemaName}}Document> {
+    return await this.{{camelCase schemaName}}Model.findOneAndUpdate(
+      {
+        ...filters,
+      },
+      {
+        $set: data,
+      },
+      {
+        new: true,
+      },
+    );
+  }
+
+  async deleteById(_id: string): Promise<void> {
+    await this.{{camelCase schemaName}}Model.deleteOne({
+      _id: _id,
+    });
+  }
+}
