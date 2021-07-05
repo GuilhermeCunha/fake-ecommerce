@@ -18,6 +18,7 @@ const ProductsList = ({ products, onFavoriteClick }: ProductsList) => {
             name={product.name}
             shortDescription={product.shortDescription}
             price={product.price}
+            isFavorite={product.isFavorite}
             onFavoriteClick={
               onFavoriteClick
                 ? () => {

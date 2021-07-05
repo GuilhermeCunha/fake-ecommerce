@@ -39,7 +39,7 @@ const ProductCard = ({
         <span className="font-bold text-lg">{name}</span>
         <span className="font-light text-sm truncate">{shortDescription}</span>
       </div>
-      {isFavorite !== undefined && (
+      {!!onFavoriteClick && (
         <div className="absolute top-2 right-2">
           {isFavorite ? (
             <AiFillLike
