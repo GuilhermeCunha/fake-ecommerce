@@ -15,17 +15,9 @@ export const MERCADO_LIVRE_SOURCE: ProductSource = {
   id: 'mercadolivre',
   name: 'Mercado Livre',
 };
-
-export const NETSHOES_SOURCE: ProductSource = {
-  id: 'netshoes',
-  name: 'Netshoes',
-  comingSoon: true,
-};
-
 export const PRODUCT_SOURCES: ProductSource[] = [
   MERCADO_LIVRE_SOURCE,
   FAKE_STORE_SOURCE,
-  NETSHOES_SOURCE,
 ];
 
 export const MERCADO_LIVRE_SITE_ID = 'MLB';
