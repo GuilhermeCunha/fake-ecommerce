@@ -118,7 +118,12 @@ const WithMercadoLivreComponent = ({
     if (!isLoadingRequestDTO) {
       fetchItems(requestDTO);
     }
-  }, [requestDTO, state.isLoadingFavoriteProducts, isLoadingRequestDTO]);
+  }, [
+    requestDTO,
+    state.isLoadingFavoriteProducts,
+    isLoadingRequestDTO,
+    fetchItems,
+  ]);
 
   useEffect(() => {
     if (!isLoadingFilters) {

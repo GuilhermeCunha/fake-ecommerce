@@ -7,6 +7,11 @@ export const NETSHOES_ACCESS_TOKEN =
 
 export const NETSHOES_CLIENT_ID = process.env.NEXT_PUBLIC_NETSHOES_CLIENT_ID;
 
+export const FAKE_ECOMMERCE_SOURCE: ProductSource = {
+  id: 'fakeecommerce',
+  name: 'Fake Ecommerce',
+};
+
 export const FAKE_STORE_SOURCE: ProductSource = {
   id: 'fakestore',
   name: 'Fake Store',
@@ -17,6 +22,7 @@ export const MERCADO_LIVRE_SOURCE: ProductSource = {
 };
 export const PRODUCT_SOURCES: ProductSource[] = [
   MERCADO_LIVRE_SOURCE,
+  FAKE_ECOMMERCE_SOURCE,
   FAKE_STORE_SOURCE,
 ];
 

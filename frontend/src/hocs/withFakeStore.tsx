@@ -52,7 +52,13 @@ const WithFakeStoreComponent = ({ Component }: WithFakeStoreComponentProps) => {
     if (!isLoadingRequestDTO && !state.isLoadingState) {
       fetchItems(requestDTO);
     }
-  }, [requestDTO, state.isLoadingState, state.isLoadingFavoriteProducts]);
+  }, [
+    requestDTO,
+    state.isLoadingState,
+    state.isLoadingFavoriteProducts,
+    isLoadingRequestDTO,
+    fetchItems,
+  ]);
 
   return (
     <Component
