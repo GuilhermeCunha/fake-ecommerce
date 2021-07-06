@@ -24,11 +24,15 @@ import {
 import { CreateProductDTO } from './dto/create-product.dto';
 import { PatchProductDTO } from './dto/patch-product.dto';
 import { UpdateProductDTO } from './dto/update-product.dto';
+import { SeedsService } from 'src/mongoose/seeds/seeds.service';
 
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private seedsService: SeedsService,
+  ) {}
 
   @ApiOkResponse({
     description: 'Productes obtido(a)s com sucesso',
@@ -113,5 +117,13 @@ export class ProductsController {
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<void> {
     return await this.productsService.deleteById(id);
+  }
+
+  @ApiCreatedResponse({
+    description: 'Produtos randômicos criados com sucesso.',
+  })
+  @Post('/seeds')
+  async seeds(): Promise<void> {
+    return await this.seedsService.createProductSeeds();
   }
 }

@@ -1,4 +1,6 @@
-import { Types } from 'mongoose';
+import { Query, Types } from 'mongoose';
+import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
 export const toMongooseId = (s?: string | number): Types.ObjectId => {
   if (!s) return;
@@ -20,3 +22,49 @@ export function getStringSearchRegex(
 
   return regex;
 }
+
+const find: Query<any[], any, {}, any> = {
+  sort: (data: any) => find,
+  exec: (data: any) => {
+    //
+  },
+  skip: (data: any) => find,
+  limit: (data: any) => find,
+} as any;
+
+const findOne: Query<any, any, {}, any> = {
+  exec: async (): Promise<any> => true,
+} as any;
+
+export const modelMock = {
+  find: () => find,
+  countDocuments: async () => 0,
+  findOne: () => findOne,
+  create: () => null,
+  findOneAndUpdate: () => null,
+  deleteOne: () => null,
+};
+
+let mongod: MongoMemoryServer;
+
+export const getMongooseTestModule = (options: MongooseModuleOptions = {}) =>
+  MongooseModule.forRootAsync({
+    useFactory: async () => {
+      const mongo = await MongoMemoryServer.create();
+      const uri = await mongo.getUri();
+
+      const configs: MongooseModuleOptions = {
+        uri: uri,
+        dbName: 'testdb',
+        useCreateIndex: true,
+        useFindAndModify: false,
+        ...options,
+      };
+
+      return configs;
+    },
+  });
+
+export const closeMongooseTestModule = async () => {
+  if (mongod) await mongod.stop();
+};

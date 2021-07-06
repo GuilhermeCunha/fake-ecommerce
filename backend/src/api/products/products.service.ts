@@ -37,9 +37,6 @@ export class ProductsService {
   > {
     let query = this.productModel.find(filters);
 
-    console.log({
-      sorts,
-    });
     query.sort(sorts);
     if (pagination) {
       const total = await this.productModel.countDocuments(filters);

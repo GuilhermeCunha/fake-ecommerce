@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { CommandModule } from 'nestjs-command';
 import { ProductsModule } from 'src/api/products/products.module';
 import { SeedsService } from './seeds.service';
 
 @Module({
-  imports: [ProductsModule, CommandModule],
+  imports: [forwardRef(() => ProductsModule), CommandModule],
   providers: [SeedsService],
   exports: [SeedsService],
 })

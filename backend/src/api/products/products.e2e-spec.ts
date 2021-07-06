@@ -4,9 +4,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { ProductsModule } from './products.module';
 import { ProductsService } from './products.service';
-import { SharedModule } from 'src/shared.module';
-import { CreateProductDTO } from './dto/create-product.dto';
 import { Types } from 'mongoose';
+import { SharedTestModule } from 'src/shared.test.module';
+import {
+  closeMongooseTestModule,
+  getMongooseTestModule,
+} from 'src/mongoose/utils';
 
 describe('Products', () => {
   let app: INestApplication;
@@ -29,7 +32,7 @@ describe('Products', () => {
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [SharedModule, ProductsModule],
+      imports: [getMongooseTestModule(), SharedTestModule, ProductsModule],
     })
       .overrideProvider(ProductsService)
       .useValue(service)
@@ -83,5 +86,6 @@ describe('Products', () => {
 
   afterAll(async () => {
     await app.close();
+    await closeMongooseTestModule();
   });
 });

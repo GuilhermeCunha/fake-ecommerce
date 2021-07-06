@@ -1,5 +1,5 @@
 {
-  "name": "backend-nodejs",
+  "name": "fake-ecommerce-backend",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -81,6 +81,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "jest": "^26.6.3",
+    "mongodb-memory-server": "^7.1.0",
     "nestjs-command": "^2.0.0",
     "plop": "^2.7.4",
     "prettier": "^2.2.1",
