@@ -23,16 +23,16 @@ export function getStringSearchRegex(
   return regex;
 }
 
-const find: Query<any[], any, {}, any> = {
-  sort: (data: any) => find,
-  exec: (data: any) => {
+const find: Query<any[], any, any, any> = {
+  sort: () => find,
+  exec: () => {
     //
   },
-  skip: (data: any) => find,
-  limit: (data: any) => find,
+  skip: () => find,
+  limit: () => find,
 } as any;
 
-const findOne: Query<any, any, {}, any> = {
+const findOne: Query<any, any, any, any> = {
   exec: async (): Promise<any> => true,
 } as any;
 

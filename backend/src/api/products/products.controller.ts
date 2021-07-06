@@ -11,7 +11,6 @@ import {
 import { Controller } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { toMongooseId } from 'src/mongoose/utils';
-import { FirebaseAuth } from 'src/shared/auth/firebase/decorators/firebase-auth.decorator';
 import { PaginatedResponse } from 'src/shared/pagination/dto/pagination-response.dto';
 import { PaginationDTO } from 'src/shared/pagination/dto/pagination.dto';
 import { Product } from 'src/mongoose/schemas/Product.schema';

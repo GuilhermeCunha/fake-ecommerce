@@ -7,7 +7,7 @@ import { Types } from 'mongoose';
 
 @ValidatorConstraint({ name: 'ObjectId', async: false })
 export class IsObjectId implements ValidatorConstraintInterface {
-  validate(text: string, args: ValidationArguments): boolean {
+  validate(text: string): boolean {
     if (!text) return false;
 
     const stringValue =
