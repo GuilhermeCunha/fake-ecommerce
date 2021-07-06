@@ -5,11 +5,11 @@ import { INestApplication } from '@nestjs/common';
 import { ProductsModule } from './products.module';
 import { ProductsService } from './products.service';
 import { Types } from 'mongoose';
-import { SharedTestModule } from 'src/shared.test.module';
 import {
   closeMongooseTestModule,
   getMongooseTestModule,
 } from 'src/mongoose/utils';
+import { SharedTestModule } from 'src/shared.test.module';
 
 describe('Products', () => {
   let app: INestApplication;
