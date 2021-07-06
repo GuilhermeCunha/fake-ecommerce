@@ -1,34 +1,35 @@
-## 1) Instalando dependencias
 
+<h1 align="center">Fake Ecommerce API</h1>
+<p align="center">Ecommerce Product Dummy Data API</p>
+
+
+
+## Getting started
+
+<p>Consult the documentation via the "/docs" API route.</p>
+<p>OBS: You can POST to /v1/products/seeds to enroll 200 random products in the database.</p>
+
+
+### Running
+
+#### With Docker
 ```bash
+$ cp .env.example .env
+$ nano .env # Fill in the necessary variables
+$ docker build -t fakeecommerceapi .
+$ docker run -dp 3333:3333 fakeecommerceapi
+```
+
+
+#### Without Docker
+```bash
+$ cp .env.example .env
+$ nano .env # Fill in the necessary variables
 $ yarn install
+$ yarn dev
 ```
 
-## 2) Configurando enviroment
-Basta duplicar o arquivo ".env.example", renomeá-lo para ".env" e preencher com valores válidos.
-
-
-## 3) (opcional) Populando o banco com dados de teste
-
-```bash
-$ yarn run seeds
-```
-## 3) Rodando a aplicação
-
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run build
-$ yarn run start:prod
-```
-
-## Testando
-
+### Testing
 ```bash
 # unit tests
 $ yarn run test

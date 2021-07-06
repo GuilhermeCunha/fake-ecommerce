@@ -8,7 +8,7 @@ export type ProductCardProps = {
   imageUrl: string;
   ref?: React.LegacyRef<HTMLDivElement>;
   isFavorite?: boolean;
-  onFavoriteClick: () => void;
+  onFavoriteClick?: () => void;
 };
 const ProductCard = ({
   name,
@@ -26,23 +26,35 @@ const ProductCard = ({
       draggable={false}
     >
       <div className="flex w-full h-2/4 justify-center">
-        <img src={imageUrl} className="" draggable={false} alt={name} />
+        <img
+          data-testid="product-image"
+          src={imageUrl}
+          className=""
+          draggable={false}
+          alt={name}
+        />
       </div>
       <div className="flex flex-col justify-center w-full h-2/4 p-4">
-        <span className="font-semibold text-base">
+        <span data-testid="product-price" className="font-semibold text-base">
           {price.toLocaleString('default', {
             minimumFractionDigits: 0,
             style: 'currency',
             currency: 'BRL',
           })}
         </span>
-        <span className="font-bold text-lg">{name}</span>
+        <span data-testid="product-name" className="font-bold text-lg">
+          {name}
+        </span>
         <span className="font-light text-sm truncate">{shortDescription}</span>
       </div>
       {!!onFavoriteClick && (
-        <div className="absolute top-2 right-2">
+        <div
+          data-testid="favorite-container"
+          className="absolute top-2 right-2"
+        >
           {isFavorite ? (
             <AiFillLike
+              data-testid="favorite-icon"
               size={28}
               onClick={() => {
                 if (onFavoriteClick) onFavoriteClick();
@@ -53,6 +65,7 @@ const ProductCard = ({
             />
           ) : (
             <AiOutlineLike
+              data-testid="not-favorite-icon"
               size={28}
               onClick={() => {
                 if (onFavoriteClick) onFavoriteClick();
