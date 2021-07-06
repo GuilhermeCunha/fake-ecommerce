@@ -39,3 +39,15 @@ $ yarn run cypress:open
 # integration tests (headless)
 $ yarn run cypress:run
 ```
+
+## Features
+- [x] Mercado Livre Integration
+- [x] FakeEcommerce Integration
+- [x] FakeStore Integration
+- [x] Login by Google
+- [x] Favorite products
+- [x] Persist searches and filters
+- [x] Dynamic filtering
+- [x] Pagination
+- [x] Permission Control
+- and more...

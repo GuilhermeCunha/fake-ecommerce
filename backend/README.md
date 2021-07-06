@@ -1,4 +1,3 @@
-
 <h1 align="center">Fake Ecommerce API</h1>
 <p align="center">Ecommerce Product Dummy Data API</p>
 
@@ -40,3 +39,10 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
+
+## Features
+- [x] Products CRUD
+- [x] Filtering
+- [x] Pagination
+- [x] Database seeding
+- and more...
