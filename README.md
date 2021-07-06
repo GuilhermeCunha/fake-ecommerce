@@ -1,3 +1,7 @@
+
+<h1 align="center">March + Fake Ecommerce API</h1>
+<p align="center">Project with the objective of allowing a user to select their favorite products through different sources, even the fake ones</p>
+
 ## How to run
 
 #### With Docker
