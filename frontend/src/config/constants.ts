@@ -5,8 +5,6 @@ export const MERCADO_LIVRE_ACCESS_TOKEN =
 export const NETSHOES_ACCESS_TOKEN =
   process.env.NEXT_PUBLIC_NETSHOES_ACCESS_TOKEN;
 
-export const NETSHOES_CLIENT_ID = process.env.NEXT_PUBLIC_NETSHOES_CLIENT_ID;
-
 export const FAKE_ECOMMERCE_SOURCE: ProductSource = {
   id: 'fakeecommerce',
   name: 'Fake Ecommerce',
