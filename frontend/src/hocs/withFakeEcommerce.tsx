@@ -1,6 +1,6 @@
 import Select from 'components/atoms/inputs/Select';
 import ProductsOrganism from 'components/organisms/ProductsOrganism';
-import { FAKE_ECOMMERCE_SOURCE, FAKE_STORE_SOURCE } from 'config/constants';
+import { FAKE_ECOMMERCE_SOURCE } from 'config/constants';
 import { useSearch } from 'contexts/SearchContext';
 import { usePersistedState } from 'hooks/usePersistedState';
 import React, { useCallback, useEffect } from 'react';
@@ -8,7 +8,6 @@ import { getFakeEcommerceProducts } from 'services/FakeEcommerce';
 import {
   FakeEcommerceProductPaging,
   GetFakeEcommerceProducts,
-  GetFakeEcommerceProductsSorts,
 } from 'services/FakeEcommerce/interfaces';
 
 export type WithFakeEcommerceComponentProps = {
@@ -27,7 +26,7 @@ const WithFakeEcommerceComponent = ({
           skip: state.pagination?.offset,
         },
       },
-      '@FAKE_STORE_REQUEST_DTO',
+      '@FAKE_ECOMMERCE_REQUEST_DTO',
     );
 
   const [pagination, setPagination, isLoadingPagination] =
@@ -37,7 +36,7 @@ const WithFakeEcommerceComponent = ({
         skip: 0,
         total: 0,
       },
-      '@FAKE_STORE_PAGINATION',
+      '@FAKE_ECOMMERCE_PAGINATION',
     );
 
   const fetchItems = useCallback((dto: GetFakeEcommerceProducts) => {
