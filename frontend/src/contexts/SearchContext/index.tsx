@@ -3,9 +3,12 @@ import { usePersistedState } from 'hooks/usePersistedState';
 import { Pagination } from 'interfaces/Pagination.interface';
 import { Product } from 'interfaces/Product.interface';
 import { ProductSource } from 'interfaces/ProductSource.interface';
-import React, { createContext, useContext } from 'react';
-import { useEffect } from 'react';
-import { useCallback } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useCallback,
+} from 'react';
 
 interface SearchContextData {
   state: SearchContextState;

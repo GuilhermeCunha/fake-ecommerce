@@ -13,7 +13,7 @@ const GoToFavoritesLink: React.FC = () => {
   return (
     <div className="flex justify-center items-center">
       <span className="font-semibold text-primaryColor-1000 mr-2">
-        Favoritos{' '}
+        Favoritos
       </span>
       <Badge text={(state.favoriteProducts?.length || 0).toString()}>
         <Link href="/favorites">

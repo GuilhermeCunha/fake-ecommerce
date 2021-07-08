@@ -9,7 +9,6 @@ import { APP_PORT, CORS_WHITE_LIST } from './config/constants';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('v1');
-  // app.useWebSocketAdapter(new RedisIoAdapter(app));
 
   const swaggerOptions = new DocumentBuilder()
     .setTitle('Fake Ecommerce Marketplace Api')
